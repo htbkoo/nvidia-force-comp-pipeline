@@ -8,8 +8,7 @@ def main():
     print("\nCurrent metamode is:\n%s" % metamode)
 
     if metamode == "":
-        print("Exiting now")
-        sys.exit(1)
+        _log_and_exit(1)
 
     new_metamode = _add_force_comp_pipeline(metamode)
     print("\nNew metamode is:\n%s" % new_metamode)
@@ -36,6 +35,11 @@ def _get_current_metamode():
     metamode = items_list[1][1:].replace("\n", "")
 
     return metamode
+
+
+def _log_and_exit(exit_code):
+    print("Exiting now")
+    sys.exit(exit_code)
 
 
 def _add_force_comp_pipeline(metamode):
