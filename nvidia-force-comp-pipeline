@@ -8,6 +8,7 @@ def main():
     print("\nCurrent metamode is:\n%s" % metamode)
 
     if metamode == "":
+        print("Exiting now")
         sys.exit(1)
 
     new_metamode = _add_force_comp_pipeline(metamode)
