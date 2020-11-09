@@ -2,11 +2,11 @@
 import sys
 import subprocess
 
-def main():
 
+def main():
     metamode = _get_current_metamode()
     print("\nCurrent metamode is:\n%s" % metamode)
-    
+
     if metamode == "":
         sys.exit(1)
 
@@ -16,9 +16,10 @@ def main():
     _apply_metamode(new_metamode)
     print("\nApplied new metamode.")
 
-def _get_current_metamode():
 
-    ret = subprocess.run(["nvidia-settings", "--query", "CurrentMetaMode"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+def _get_current_metamode():
+    ret = subprocess.run(["nvidia-settings", "--query", "CurrentMetaMode"], stdout=subprocess.PIPE,
+                         stderr=subprocess.PIPE)
 
     stdout = ret.stdout.decode('utf-8')[:-1]
     stderr = ret.stderr.decode('utf-8')[:-1]
@@ -35,12 +36,14 @@ def _get_current_metamode():
 
     return metamode
 
+
 def _add_force_comp_pipeline(metamode):
     return metamode.replace("{", "{ForceCompositionPipeline=On, ")
 
-def _apply_metamode(metamode):
 
-    ret = subprocess.run(["nvidia-settings", "--assign", "CurrentMetaMode=%s" % metamode], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+def _apply_metamode(metamode):
+    ret = subprocess.run(["nvidia-settings", "--assign", "CurrentMetaMode=%s" % metamode], stdout=subprocess.PIPE,
+                         stderr=subprocess.PIPE)
 
     stderr = ret.stderr.decode('utf-8')[:-1]
     if stderr != "": print(stderr)
