@@ -10,6 +10,12 @@ def main():
     if metamode == "":
         _log_and_exit(1)
 
+    if _is_force_comp_pipeline_configured(metamode):
+        print("")
+        print("Warning: ForceCompositionPipeline already configured for at least one display")
+        print("Not going to update `nvidia-settings` and manual configuration is required")
+        _log_and_exit(2)
+
     new_metamode = _add_force_comp_pipeline(metamode)
     print("\nNew metamode is:\n%s" % new_metamode)
 
@@ -40,6 +46,10 @@ def _get_current_metamode():
 def _log_and_exit(exit_code):
     print("Exiting now")
     sys.exit(exit_code)
+
+
+def _is_force_comp_pipeline_configured(metamode):
+    return "ForceCompositionPipeline" in metamode
 
 
 def _add_force_comp_pipeline(metamode):
